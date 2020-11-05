@@ -4,11 +4,15 @@ A Clojure library designed to acquire Github tokens for use in Github apps.
 
 ## Build
 
+Requires leiningen
+
 `lein uberjar`
 
 ## Usage
 
-`java -jar <path/to/jar> --app-id N --installation-id N --pkey-file-path S`
+Requires java >8
+
+`java -jar <path/to/jar-standalone> --app-id N --installation-id N --pkey-file-path S`
 
 ## License
 

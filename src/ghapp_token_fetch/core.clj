@@ -6,17 +6,17 @@
             [clj-time.core :as time])
   (:gen-class))
 
-(defn gen-jwt [app-id pkey-file-path]
+(defn- gen-jwt [app-id pkey-file-path]
   (let [pkey    (private-key pkey-file-path)
         payload {:iat time/now
                  :exp (time/plus (time/now) (time/minutes 10))
                  :iss app-id}]
     (sign payload pkey {:alg :es256})))
 
-(defn fetch-token [{:keys [app-id installation-id pkey-file-path]}]
+(defn- fetch-token [{:keys [app-id installation-id pkey-file-path]}]
   (let [jwt     (gen-jwt app-id pkey-file-path)
-        options {:auth (str "Authorization: Bearer " jwt)
-                 :accept "Accept: application/vnd.github.v3+json"}]
+        options {:oauth-token (str "Bearer " jwt)
+                 :accept "application/vnd.github.v3+json"}]
     (api-call :get "app/installations/%s/access_tokens" [installation-id] options)))
 
 (def CLI_CONFIG
@@ -33,4 +33,4 @@
                   :type    :string}]})
 
 (defn -main [& args]
-  (run-cmd args CLI_CONFIG))
+  (println (run-cmd args CLI_CONFIG)))
