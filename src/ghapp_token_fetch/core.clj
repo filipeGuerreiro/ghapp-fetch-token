@@ -7,11 +7,11 @@
             [clj-time.coerce :as c])
   (:gen-class))
 
-(defn- parse-joda-time [t] (long (/ (c/to-long t) 1000)))
+(defn- joda->i [t] (long (/ (c/to-long t) 1000)))
 (defn- gen-jwt [app-id pkey-file-path]
   (let [pkey    (private-key pkey-file-path)
-        payload {:iat (parse-joda-time (t/now))
-                 :exp (parse-joda-time (t/plus (t/now) (t/minutes 10)))
+        payload {:iat (joda->i (t/now))
+                 :exp (joda->i (t/plus (t/now) (t/minutes 10)))
                  :iss app-id}]
     (sign payload pkey {:alg :rs512})))
 
