@@ -1,6 +1,8 @@
 # Github App Token Fetcher
 
-A Clojure library designed to acquire Github tokens for use in Github apps.
+A Clojure library designed to acquire an installation access token for your Github Apps.
+
+More information can be found at [Github's official docs](https://docs.github.com/en/free-pro-team@latest/developers/apps/authenticating-with-github-apps).
 
 ## Build
 
@@ -16,7 +18,7 @@ Requires java >8
 
 ## License
 
-Copyright © 2020 FIXME
+Copyright © 2020
 
 This program and the accompanying materials are made available under the
 terms of the Eclipse Public License 2.0 which is available at

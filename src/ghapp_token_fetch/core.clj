@@ -13,8 +13,6 @@
         payload {:iat (parse-time (t/now))
                  :exp (parse-time (t/plus (t/now) (t/minutes 10)))
                  :iss app-id}]
-    ;(println payload)
-    ;(println (sign payload pkey {:alg :rs256}))
     (sign payload pkey {:alg :rs256})))
 
 (defn- fetch-token [{:keys [endpoint app-id installation-id pkey-file-path]}]
@@ -22,8 +20,8 @@
         options {:oauth-token (str "Bearer " jwt)
                  :accept "application/vnd.github.v3+json"}]
     (binding [url endpoint]
-      (println
-       (api-call :get "app/installations/%s/access_tokens" [installation-id] options)))))
+      (println 
+       (:message (:body (api-call :get "app/installations/%s/access_tokens" [installation-id] options)))))))
 
 (def CLI_CONFIG
   {:command     "ghapp-token-fetch"
