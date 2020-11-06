@@ -14,7 +14,11 @@ Requires leiningen
 
 Requires java >8
 
-`java -jar <path/to/jar-standalone> --app-id N --installation-id N --pkey-file-path S`
+`java -jar <path/to/jar-standalone> --app-id N --installation-id N --pkey-file-path S --endpoint S`
+
+Example:
+
+`java -jar <path/to/jar-standalone> -a 1591 -i 18890 -k "/home/filipe/Downloads/gitapp.private-key.pem" -e "https://git.bigcorp.com/api/v3/"`
 
 ## License
 

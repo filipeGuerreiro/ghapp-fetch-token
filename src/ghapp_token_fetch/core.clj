@@ -1,27 +1,27 @@
 (ns ghapp-token-fetch.core
-  (:require [cli-matic.core :refer [run-cmd]]
-            [tentacles.core :refer [api-call url]]
+  (:require [cli-matic.core  :refer [run-cmd]]
+            [tentacles.core  :refer [api-call with-url with-defaults]]
             [buddy.core.keys :refer [private-key]]
-            [buddy.sign.jwt :refer [sign]]
-            [clj-time.core :as t]
+            [buddy.sign.jwt  :refer [sign]]
+            [clj-time.core   :as t]
             [clj-time.coerce :as c])
   (:gen-class))
 
+(defn- parse-joda-time [t] (long (/ (c/to-long t) 1000)))
 (defn- gen-jwt [app-id pkey-file-path]
   (let [pkey    (private-key pkey-file-path)
-        parse-time #(long (/ (c/to-long %) 1000))
-        payload {:iat (parse-time (t/now))
-                 :exp (parse-time (t/plus (t/now) (t/minutes 10)))
+        payload {:iat (parse-joda-time (t/now))
+                 :exp (parse-joda-time (t/plus (t/now) (t/minutes 10)))
                  :iss app-id}]
-    (sign payload pkey {:alg :rs256})))
+    (sign payload pkey {:alg :rs512})))
 
 (defn- fetch-token [{:keys [endpoint app-id installation-id pkey-file-path]}]
-  (let [jwt     (gen-jwt app-id pkey-file-path)
-        options {:oauth-token (str "Bearer " jwt)
-                 :accept "application/vnd.github.v3+json"}]
-    (binding [url endpoint]
-      (println 
-       (:message (:body (api-call :get "app/installations/%s/access_tokens" [installation-id] options)))))))
+  (let [jwt (gen-jwt app-id pkey-file-path)
+        res (with-url endpoint
+              (with-defaults {:accept "application/vnd.github.machine-man-preview+json"
+                              :bearer-token jwt}
+                (api-call :get "app/installations/%s/access_tokens" [installation-id])))]
+      (println (-> res :body :message))))
 
 (def CLI_CONFIG
   {:command     "ghapp-token-fetch"
