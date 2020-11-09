@@ -15,7 +15,7 @@
                  :iss app-id}]
     (sign payload pkey {:alg :rs256})))
 
-(defn- fetch-token [{:keys [endpoint app-id installation-id pkey-file-path]}]
+(defn fetch-installation-token [{:keys [endpoint app-id installation-id pkey-file-path]}]
   (let [jwt (gen-jwt app-id pkey-file-path)
         res (with-url endpoint
               (with-defaults {:accept "application/vnd.github.machine-man-preview+json"
@@ -25,7 +25,7 @@
 
 (def CLI_CONFIG
   {:command     "ghapp-token-fetch"
-   :runs        fetch-token
+   :runs        fetch-installation-token
    :opts        [{:as "Github API endpoint"
                   :option "endpoint" :short "e"
                   :default "https://api.github.com/"
