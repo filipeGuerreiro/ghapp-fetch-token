@@ -4,7 +4,7 @@ A Clojure library designed to acquire an installation access token for your Gith
 
 More information can be found at [Github's official docs](https://docs.github.com/en/free-pro-team@latest/developers/apps/authenticating-with-github-apps).
 
-[![Clojars Project](https://clojars.org/ghapp-token-fetch/latest-version.svg)](https://clojars.org/ghapp-token-fetch)
+[![Clojars Project](https://img.shields.io/clojars/v/ghapp-token-fetch.svg)](https://clojars.org/ghapp-token-fetch)
 
 ## Build
 
