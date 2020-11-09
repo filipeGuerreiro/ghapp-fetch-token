@@ -18,10 +18,10 @@
 (defn- fetch-token [{:keys [endpoint app-id installation-id pkey-file-path]}]
   (let [jwt (gen-jwt app-id pkey-file-path)
         res (with-url endpoint
-              (with-defaults {:accept "application/vnd.github.v3+json"
+              (with-defaults {:accept "application/vnd.github.machine-man-preview+json"
                               :bearer-token jwt}
-                (api-call :get "app/installations/%s/access_tokens" [installation-id])))]
-      (println (-> res :body :message))))
+                (api-call :post "app/installations/%s/access_tokens" [installation-id])))]
+      (println (-> res :token))))
 
 (def CLI_CONFIG
   {:command     "ghapp-token-fetch"
