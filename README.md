@@ -16,7 +16,7 @@ Requires leiningen
 
 Requires java >8
 
-`java -jar <path/to/jar-standalone> --app-id N --installation-id N --pkey-file-path S --endpoint S`
+`java -jar <path/to/jar-standalone> --app-id N --installation-id N --pkey-file-path S [--endpoint S]`
 
 Example:
 
