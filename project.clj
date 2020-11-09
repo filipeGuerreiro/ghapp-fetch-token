@@ -5,12 +5,9 @@
             :url "https://www.eclipse.org/legal/epl-2.0/"}
   :main ghapp-token-fetch.core
   :aot [ghapp-token-fetch.core]
-  :dependencies [
-                 [org.clojure/clojure "1.10.1"]
+  :dependencies [[org.clojure/clojure "1.10.1"]
                  [cli-matic "0.4.3"]
-                 [tentacles "0.5.1"]
+                 [irresponsible/tentacles "0.6.6"]
                  [buddy/buddy-sign "3.2.0"]
-                 [clj-time "0.15.2"]
-                 ;; fix https://github.com/bfontaine/lein-fore-prob/issues/7
-                 [clj-http "3.10.0"]]
+                 [clj-time "0.15.2"]]
   :repl-options {:init-ns ghapp-token-fetch.core})

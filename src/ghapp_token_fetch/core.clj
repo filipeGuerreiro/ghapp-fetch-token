@@ -13,13 +13,13 @@
         payload {:iat (joda->i (t/now))
                  :exp (joda->i (t/plus (t/now) (t/minutes 10)))
                  :iss app-id}]
-    (sign payload pkey {:alg :rs512})))
+    (sign payload pkey {:alg :rs256})))
 
 (defn- fetch-token [{:keys [endpoint app-id installation-id pkey-file-path]}]
   (let [jwt (gen-jwt app-id pkey-file-path)
         res (with-url endpoint
               (with-defaults {:accept "application/vnd.github.v3+json"
-                              :headers {"Authorization" (str "Bearer " jwt)}}
+                              :bearer-token jwt}
                 (api-call :get "app/installations/%s/access_tokens" [installation-id])))]
       (println (-> res :body :message))))
 
