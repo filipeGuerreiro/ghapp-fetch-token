@@ -1,18 +1,15 @@
-(defproject ghapp-token-fetch "0.1.0"
+(defproject ghapp-token-fetch "0.1.1"
   :description "A Clojure library designed to acquire an installation access token for your Github Apps."
   :url "https://github.com/filipeGuerreiro/ghapp-fetch-token"
   :license {:name "The MIT License"
             :url "https://opensource.org/licenses/MIT"}
-  :repositories [["clojars" {:url "https://clojars.org/repo"
-                             :username [:env/clojars_username :gpg]
-                             :password [:env/clojars_password :gpg]}]]
-  :deploy-repositories  [["releases" :clojars]
-                         ["snapshots" :clojars]]
-  :signing {:gpg-key "868C4511"}
-  :profiles {:dev {:global-vars {*warn-on-reflection* true}
-                   :dependencies [[expectations "2.0.13"]]}}
+  :deploy-repositories [["clojars" {:url "https://repo.clojars.org"
+                                    :username :env/clojars_username
+                                    :password :env/clojars_password
+                                    :sign-releases false}]]
   :main ghapp-token-fetch.core
   :aot [ghapp-token-fetch.core]
+  :omit-source true
   :dependencies [[org.clojure/clojure "1.10.1"]
                  [cli-matic "0.4.3"]
                  [irresponsible/tentacles "0.6.6"]
